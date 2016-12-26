@@ -13,19 +13,13 @@ class IndexController extends CommonController
         //点击量最高的六篇的文章
         $pics = Article::orderBy('art_view', 'desc')->take(6)->get();
 
-        //点击量最高的五篇的文章
-        $hots = Article::orderBy('art_view', 'desc')->take(5)->get();
-
-        //八条最新发布文章
-        $new = Article::orderBy('art_time', 'desc')->take(8)->get();
-
         //图文列表5篇，带分页
         $articles = Article::orderBy('art_time', 'desc')->paginate(5);
 
         //友情链接
         $links = Links::orderBy('link_order', 'asc')->get();
 
-        return view('home.index', compact('pics', 'hots', 'new', 'articles', 'links'));
+        return view('home.index', compact('pics', 'articles', 'links'));
     }
 
     public function cate($cate_id)
@@ -35,7 +29,9 @@ class IndexController extends CommonController
 
         $category = Category::find($cate_id);
 
-        return view('home.cate', compact('category', 'articles'));
+        $subCates = Category::where('cate_pid', $cate_id)->get();
+
+        return view('home.cate', compact('category', 'articles', 'subCates'));
     }
 
     public function article()

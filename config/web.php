@@ -1,6 +1,6 @@
 <?php return array (
   'conf' => '雄哥博客项目werwer',
-  'web_count' => '这是一个文本域2323工',
+  'web_count' => '百度统计',
   'web_status' => '1',
   'web_title' => '建雄的博客',
   'seo_title' => 'stay hungry, stay foolish',
