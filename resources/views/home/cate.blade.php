@@ -1,121 +1,80 @@
-﻿<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>陈华个人博客</title>
-<meta name="keywords" content="个人博客,陈华个人博客,个人博客模板,陈华" />
-<meta name="description" content="陈华个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
-    <link href="{{ asset('style/css/base.css') }}" rel="stylesheet">
-    <link href="{{ asset('style/css/style.css') }}" rel="stylesheet">
-<!--[if lt IE 9]>
-    <script src="{{ asset('style/js/modernizr.js')}}"></script>
-<![endif]-->
-</head>
-<body>
-<header>
-  <div id="logo"><a href="/"></a></div>
-  <nav class="topnav" id="topnav"><a href="index.html"><span>首页</span><span class="en">Protal</span></a><a href="about.html"><span>关于我</span><span class="en">About</span></a><a href="newlist.html"><span>慢生活</span><span class="en">Life</span></a><a href="moodlist.html"><span>碎言碎语</span><span class="en">Doing</span></a><a href="share.html"><span>模板分享</span><span class="en">Share</span></a><a href="knowledge.html"><span>学无止境</span><span class="en">Learn</span></a><a href="book.html"><span>留言版</span><span class="en">Gustbook</span></a></nav>
-  </nav>
-</header>
-<article class="blogs">
-<h1 class="t_nav"><span>“慢生活”不是懒惰，放慢速度不是拖延时间，而是让我们在生活中寻找到平衡。</span><a href="/" class="n1">网站首页</a><a href="/" class="n2">慢生活</a></h1>
-<div class="newblog left">
-   <h2>程序员请放下你的技术情节，与你的同伴一起进步</h2>
-   <p class="dateview"><span>发布时间：2013-11-04</span><span>作者：陈华</span><span>分类：[<a href="/news/life/">程序人生</a>]</span></p>
-    <figure><img src="images/001.png"></figure>
-    <ul class="nlist">
-      <p>如果说掌握一门赖以生计的技术是技术人员要学会的第一课的话， 那么我觉得技术人员要真正学会的第二课，不是技术，而是业务、交流与协作，学会关心其他工作伙伴的工作情况和进展...</p>
-      <a title="/" href="/" target="_blank" class="readmore">阅读全文>></a>
-    </ul>
-    <div class="line"></div>
-     <h2>程序员请放下你的技术情节，与你的同伴一起进步</h2>
-   <p class="dateview"><span>发布时间：2013-11-04</span><span>作者：陈华</span><span>分类：[<a href="/news/life/">程序人生</a>]</span></p>
-    <figure><img src="images/001.png"></figure>
-    <ul class="nlist">
-      <p>如果说掌握一门赖以生计的技术是技术人员要学会的第一课的话， 那么我觉得技术人员要真正学会的第二课，不是技术，而是业务、交流与协作，学会关心其他工作伙伴的工作情况和进展...</p>
-      <a title="/" href="/" target="_blank" class="readmore">阅读全文>></a>
-    </ul>
-    <div class="line"></div>
-         <h2>程序员请放下你的技术情节，与你的同伴一起进步</h2>
-   <p class="dateview"><span>发布时间：2013-11-04</span><span>作者：陈华</span><span>分类：[<a href="/news/life/">程序人生</a>]</span></p>
-    <figure><img src="images/001.png"></figure>
-    <ul class="nlist">
-      <p>如果说掌握一门赖以生计的技术是技术人员要学会的第一课的话， 那么我觉得技术人员要真正学会的第二课，不是技术，而是业务、交流与协作，学会关心其他工作伙伴的工作情况和进展...</p>
-      <a title="/" href="/" target="_blank" class="readmore">阅读全文>></a>
-    </ul>
-    <div class="line"></div>
-         <h2>程序员请放下你的技术情节，与你的同伴一起进步</h2>
-   <p class="dateview"><span>发布时间：2013-11-04</span><span>作者：陈华</span><span>分类：[<a href="/news/life/">程序人生</a>]</span></p>
-    <figure><img src="images/001.png"></figure>
-    <ul class="nlist">
-      <p>如果说掌握一门赖以生计的技术是技术人员要学会的第一课的话， 那么我觉得技术人员要真正学会的第二课，不是技术，而是业务、交流与协作，学会关心其他工作伙伴的工作情况和进展...</p>
-      <a title="/" href="/" target="_blank" class="readmore">阅读全文>></a>
-    </ul>
-    <div class="line"></div>
-    <div class="blank"></div>
-    <div class="ad">  
-    <img src="images/ad.png">
-    </div>
-    <div class="page">
+﻿@extends('layouts.home')
+@section('info')
+    <title>{{ $category->cate_name }} - {{ Config::get('web.web_title') }}</title>
+    <meta name="keywords" content="{{ $category->cate_keywords }}"/>
+    <meta name="description" content="{{ $category->cate_description }}"/>
+@endsection
+@section('content')
+    <article class="blogs">
+        <h1 class="t_nav"><span>{{ $category->cate_title }}</span><a href="{{ url('/') }}" class="n1">网站首页</a><a href="{{ url('cate/' . $category->cate_id) }}" class="n2">{{ $category->cate_name }}</a>
+        </h1>
+        <div class="newblog left">
+            @foreach($articles as $article)
+                <h2>{{ $article->art_title }}</h2>
+                <p class="dateview"><span>发布时间：{{ date('Y-m-d', $article->art_time) }}</span><span>作者：{{ $article->editor }}</span><span>分类：[<a
+                                href="{{ url('cate/' . $category->cate_id) }}">{{ $category->cate_name }}</a>]</span></p>
+                <figure><img src="{{ url($article->art_thumb) }}"></figure>
+                <ul class="nlist">
+                    <p>{{ $article->art_description }}</p>
+                    <a title="{{ $article->art_title }}" href="{{ url('a/' . $article->art_id) }}" target="_blank" class="readmore">阅读全文>></a>
+                </ul>
+                <div class="line"></div>
+            @endforeach
 
-<ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="http://blog.hd/admin/article?page=2">2</a></li> <li><a href="http://blog.hd/admin/article?page=2" rel="next">»</a></li></ul>
+            <div class="page">
+                {{ $articles->links() }}
+            </div>
+        </div>
+        <aside class="right">
+            <div class="rnav">
+                <ul>
+                    <li class="rnav1"><a href="/download/" target="_blank">日记</a></li>
+                    <li class="rnav2"><a href="/newsfree/" target="_blank">程序人生</a></li>
+                    <li class="rnav3"><a href="/web/" target="_blank">欣赏</a></li>
+                    <li class="rnav4"><a href="/newshtml5/" target="_blank">短信祝福</a></li>
+                </ul>
+            </div>
+            <div class="news">
+                <h3>
+                    <p>最新<span>文章</span></p>
+                </h3>
+                <ul class="rank">
+                    <li><a href="/" title="Column 三栏布局 个人网站模板" target="_blank">Column 三栏布局 个人网站模板</a></li>
+                    <li><a href="/" title="with love for you 个人网站模板" target="_blank">with love for you 个人网站模板</a></li>
+                    <li><a href="/" title="免费收录网站搜索引擎登录口大全" target="_blank">免费收录网站搜索引擎登录口大全</a></li>
+                    <li><a href="/" title="做网站到底需要什么?" target="_blank">做网站到底需要什么?</a></li>
+                    <li><a href="/" title="企业做网站具体流程步骤" target="_blank">企业做网站具体流程步骤</a></li>
+                    <li><a href="/" title="建站流程篇——教你如何快速学会做网站" target="_blank">建站流程篇——教你如何快速学会做网站</a></li>
+                    <li><a href="/" title="box-shadow 阴影右下脚折边效果" target="_blank">box-shadow 阴影右下脚折边效果</a></li>
+                    <li><a href="/" title="打雷时室内、户外应该需要注意什么" target="_blank">打雷时室内、户外应该需要注意什么</a></li>
+                </ul>
+                <h3 class="ph">
+                    <p>点击<span>排行</span></p>
+                </h3>
+                <ul class="paih">
+                    <li><a href="/" title="Column 三栏布局 个人网站模板" target="_blank">Column 三栏布局 个人网站模板</a></li>
+                    <li><a href="/" title="withlove for you 个人网站模板" target="_blank">with love for you 个人网站模板</a></li>
+                    <li><a href="/" title="免费收录网站搜索引擎登录口大全" target="_blank">免费收录网站搜索引擎登录口大全</a></li>
+                    <li><a href="/" title="做网站到底需要什么?" target="_blank">做网站到底需要什么?</a></li>
+                    <li><a href="/" title="企业做网站具体流程步骤" target="_blank">企业做网站具体流程步骤</a></li>
+                </ul>
+            </div>
+            <div class="visitors">
+                <h3><p>最近访客</p></h3>
+                <ul>
 
- 
-    </div>
-</div>
-<aside class="right">
-   <div class="rnav">
-      <ul>
-       <li class="rnav1"><a href="/download/" target="_blank">日记</a></li>
-       <li class="rnav2"><a href="/newsfree/" target="_blank">程序人生</a></li>
-       <li class="rnav3"><a href="/web/" target="_blank">欣赏</a></li>
-       <li class="rnav4"><a href="/newshtml5/" target="_blank">短信祝福</a></li>
-     </ul>      
-    </div>
-<div class="news">
-<h3>
-      <p>最新<span>文章</span></p>
-    </h3>
-    <ul class="rank">
-      <li><a href="/" title="Column 三栏布局 个人网站模板" target="_blank">Column 三栏布局 个人网站模板</a></li>
-      <li><a href="/" title="with love for you 个人网站模板" target="_blank">with love for you 个人网站模板</a></li>
-      <li><a href="/" title="免费收录网站搜索引擎登录口大全" target="_blank">免费收录网站搜索引擎登录口大全</a></li>
-      <li><a href="/" title="做网站到底需要什么?" target="_blank">做网站到底需要什么?</a></li>
-      <li><a href="/" title="企业做网站具体流程步骤" target="_blank">企业做网站具体流程步骤</a></li>
-      <li><a href="/" title="建站流程篇——教你如何快速学会做网站" target="_blank">建站流程篇——教你如何快速学会做网站</a></li>
-      <li><a href="/" title="box-shadow 阴影右下脚折边效果" target="_blank">box-shadow 阴影右下脚折边效果</a></li>
-      <li><a href="/" title="打雷时室内、户外应该需要注意什么" target="_blank">打雷时室内、户外应该需要注意什么</a></li>
-    </ul>
-    <h3 class="ph">
-      <p>点击<span>排行</span></p>
-    </h3>
-    <ul class="paih">
-      <li><a href="/" title="Column 三栏布局 个人网站模板" target="_blank">Column 三栏布局 个人网站模板</a></li>
-      <li><a href="/" title="withlove for you 个人网站模板" target="_blank">with love for you 个人网站模板</a></li>
-      <li><a href="/" title="免费收录网站搜索引擎登录口大全" target="_blank">免费收录网站搜索引擎登录口大全</a></li>
-      <li><a href="/" title="做网站到底需要什么?" target="_blank">做网站到底需要什么?</a></li>
-      <li><a href="/" title="企业做网站具体流程步骤" target="_blank">企业做网站具体流程步骤</a></li>
-    </ul>
-    </div>
-    <div class="visitors">
-      <h3><p>最近访客</p></h3>
-      <ul>
-
-      </ul>
-    </div>
-     <!-- Baidu Button BEGIN -->
-    <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare"><a class="bds_tsina"></a><a class="bds_qzone"></a><a class="bds_tqq"></a><a class="bds_renren"></a><span class="bds_more"></span><a class="shareCount"></a></div>
-    <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6574585" ></script> 
-    <script type="text/javascript" id="bdshell_js"></script> 
-    <script type="text/javascript">
-document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
-</script> 
-    <!-- Baidu Button END -->   
-</aside>
-</article>
-<footer>
-  <p>Design by 陈华编程社区 <a href="http://www.miitbeian.gov.cn/" target="_blank">http://www.chenhua.club</a> <a href="/">网站统计</a></p>
-</footer>
-<script src="{{ asset('style/js/silder.js') }}"></script>
-</body>
-</html>
+                </ul>
+            </div>
+            <!-- Baidu Button BEGIN -->
+            <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare"><a class="bds_tsina"></a><a
+                        class="bds_qzone"></a><a class="bds_tqq"></a><a class="bds_renren"></a><span
+                        class="bds_more"></span><a class="shareCount"></a></div>
+            <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6574585"></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date() / 3600000)
+            </script>
+            <!-- Baidu Button END -->
+        </aside>
+    </article>
+@endsection

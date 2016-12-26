@@ -72,7 +72,7 @@
 
         function changeOrder (obj, nav_id) {
             var nav_order = $(obj).val();
-            $.post('{{ url('admin/links/changeorder') }}', {'_token': '{{ csrf_token() }}', nav_id: nav_id, nav_order: nav_order}, function (data) {
+            $.post('{{ url('admin/nav/changeorder') }}', {'_token': '{{ csrf_token() }}', nav_id: nav_id, nav_order: nav_order}, function (data) {
                 if (data.status == 0) {
                     layer.msg(data.msg, {icon: 6});
                 } else {
@@ -85,7 +85,7 @@
             layer.confirm('你确定删除这个自定义导航吗？', {
                 btn: ['确定', '取消']
             }, function () {
-                $.post("{{ url('admin/links') }}/" + nav_id, {_token: "{{ csrf_token() }}", _method: "delete"}, function (data) {
+                $.post("{{ url('admin/nav') }}/" + nav_id, {_token: "{{ csrf_token() }}", _method: "delete"}, function (data) {
                     if (data.status == 0) {
                         location.href = location.href;
                         layer.msg(data.msg, {icon: 6});
