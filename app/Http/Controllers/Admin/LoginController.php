@@ -26,7 +26,7 @@ class LoginController extends CommonController
 
             session(['user' => $user]);
 
-            return redirect('admin/index');
+            return redirect('admin');
         } else {
             return view('admin/login');
         }

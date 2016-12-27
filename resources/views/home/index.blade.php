@@ -4,6 +4,10 @@
     <meta name="keywords" content="{{ Config::get('web.keywords') }}"/>
     <meta name="description" content="{{ Config::get('web.description') }}"/>
 @endsection
+@section('css')
+    @parent
+    <link href="{{ asset('style/css/index.css') }}" rel="stylesheet">
+@stop
 @section('content')
     <div class="banner">
         <section class="box">

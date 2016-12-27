@@ -4,6 +4,10 @@
     <meta name="keywords" content="{{ $category->cate_keywords }}"/>
     <meta name="description" content="{{ $category->cate_description }}"/>
 @endsection
+@section('css')
+    @parent
+    <link href="{{ asset('style/css/style.css') }}" rel="stylesheet">
+@stop
 @section('content')
     <article class="blogs">
         <h1 class="t_nav"><span>{{ $category->cate_title }}</span><a href="{{ url('/') }}" class="n1">网站首页</a><a href="{{ url('cate/' . $category->cate_id) }}" class="n2">{{ $category->cate_name }}</a>
